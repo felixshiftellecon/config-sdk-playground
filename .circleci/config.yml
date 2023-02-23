@@ -1,0 +1,13 @@
+version: 2.1
+
+jobs:
+  hello-job:
+    docker:
+      - image: cimg/base:2023.02
+    resource_class: small
+    steps:
+      - run: echo "hello john"
+workflows:
+  hello-workflow:
+    jobs:
+      - hello-job
