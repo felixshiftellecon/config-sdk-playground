@@ -1,13 +1,10 @@
 version: 2.1
 
-jobs:
-  hello-job:
-    docker:
-      - image: cimg/base:2023.02
-    resource_class: small
-    steps:
-      - run: echo "hello john"
+orbs:
+  node: circleci/node@5.1.0 
+
 workflows:
-  hello-workflow:
+  test:
     jobs:
-      - hello-job
+      - node/test:
+          test-results-for: jest

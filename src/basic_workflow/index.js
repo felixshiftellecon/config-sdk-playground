@@ -1,31 +1,32 @@
 const CircleCI = require("@circleci/circleci-config-sdk");
-const fs = require('fs');
 
-const basicConfig= new CircleCI.Config();
+module.exports.basicConfig = function () {
 
-// Define base executor
-const dockerBase = new CircleCI.executors.DockerExecutor(
-  "cimg/base:2023.02",
-  "small"
-);
+  var config = new CircleCI.Config() 
 
-// Define hello job
-const helloJob = new CircleCI.Job("hello", dockerBase);
-helloJob.addStep(new CircleCI.commands.Run({command: "echo hello John"}));
+  // Define base executor
+  var dockerBase = new CircleCI.executors.DockerExecutor(
+    "cimg/base:2023.02",
+    "small"
+  );
 
-// Define workflow
-const helloWorkflow = new CircleCI.Workflow("hello-workflow");
-helloWorkflow.addJob(helloJob);
+  // Define hello job
+  var helloJob = new CircleCI.Job("hello", dockerBase);
+  helloJob.addStep(new CircleCI.commands.Run({command: "echo hello john"}));
+  config.addJob(helloJob);
 
-// Add workflow to config
-basicConfig.addWorkflow(helloWorkflow)
+  // Define workflow
+  var helloWorkflow = new CircleCI.Workflow("hello-workflow");
+  helloWorkflow.addJob(helloJob);
 
-// Export a config
-export default function writeBasicConfig(configPath) {
-  fs.writeFile(configPath, basicConfig.generate(), (err) => {
-    if (err) {
-      console.error(err);
-      return
-    }
-  });
-}
+  // Add workflow to config
+  config.addWorkflow(helloWorkflow);
+
+  //config.writeFile('basic_workflow.yml')
+  
+  // Generate JSON config
+  config = config.generate();
+
+  return config;
+
+};
