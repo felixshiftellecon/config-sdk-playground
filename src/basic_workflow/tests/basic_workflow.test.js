@@ -1,3 +1,4 @@
+const fs = require('fs');
 const basicWorkflow = require('../index.js')
 const CircleCI = require("@circleci/circleci-config-sdk");
 
@@ -27,6 +28,6 @@ test('Create Basic Config', () => {
 
   var basicConfig = basicWorkflow.basicConfig();
 
-  expect('basic_workflow.yml').toEqual('test_workflow.yml');
+  expect(fs.readFileSync('basic_workflow.yml')).toEqual(fs.readFileSync('test_workflow.yml'));
 
 });
