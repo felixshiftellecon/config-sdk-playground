@@ -23,11 +23,11 @@ test('Create Basic Config', () => {
   // Add workflow to test config
   testConfig.addWorkflow(testWorkflow);
 
-  // Generate JSON config
+  // Generate config file
   testConfig = testConfig.writeFile('test_workflow.yml');
 
   var basicConfig = basicWorkflow.basicConfig();
 
-  expect(fs.readFileSync('basic_workflow.yml')).toEqual(fs.readFileSync('test_workflow.yml'));
+  expect(fs.readFileSync('./basic_workflow.yml')).toEqual(fs.readFileSync('./test_workflow.yml'));
 
 });
