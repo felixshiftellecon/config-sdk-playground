@@ -21,10 +21,8 @@ module.exports.basicConfig = function () {
 
   // Add workflow to config
   config.addWorkflow(helloWorkflow);
-
-  //config.writeFile('basic_workflow.yml')
   
-  // Generate JSON config
+  // Generate YAML config
   config.writeFile('basic_workflow.yml');
 
   return config;
